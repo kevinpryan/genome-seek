@@ -18,7 +18,7 @@ LABEL maintainer="Skyler Kuhn <kuhnsa@nih.gov>" \
 #  • bamtools/2.5.2  ✓
 #  • bwa/0.7.17-6    ✓
 #  • libboost/1.80.0 ✓
-#  • HLA-LA/1.0.3    ✓
+#  • HLA-LA/1.0.4    ✓
 #  • bamtools/2.5.2  ✓
 WORKDIR /opt2
 # Install bwa/0.7.17-6 for HLA-LA,
@@ -90,23 +90,23 @@ RUN mkdir -p /opt2/bamtools/ \
 ENV PATH="${PATH}:/opt2/libbamtools/bin" \
     LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/opt2/libbamtools/lib"
 
-# Install HLA-LA/1.0.3,
+# Install HLA-LA/1.0.4,
 # for more info see:
 # https://github.com/DiltheyLab/HLA-LA
 # https://github.com/DiltheyLab/HLA-LA#installing-hlala
-# Checkout commit tied to v1.0.3
+# Checkout commit tied to v1.0.4
 # and test that the binary works!
-RUN mkdir -p /opt2/hla-la/1.0.3/ \
-        /opt2/hla-la/1.0.3/HLA-LA \
-        /opt2/hla-la/1.0.3/HLA-LA/bin \
-        /opt2/hla-la/1.0.3/HLA-LA/src \
-        /opt2/hla-la/1.0.3/HLA-LA/obj \
-        /opt2/hla-la/1.0.3/HLA-LA/temp \
-        /opt2/hla-la/1.0.3/HLA-LA/working \
-        /opt2/hla-la/1.0.3/HLA-LA/graphs \
-    && cd /opt2/hla-la/1.0.3/HLA-LA/src \
+RUN mkdir -p /opt2/hla-la/1.0.4/ \
+        /opt2/hla-la/1.0.4/HLA-LA \
+        /opt2/hla-la/1.0.4/HLA-LA/bin \
+        /opt2/hla-la/1.0.4/HLA-LA/src \
+        /opt2/hla-la/1.0.4/HLA-LA/obj \
+        /opt2/hla-la/1.0.4/HLA-LA/temp \
+        /opt2/hla-la/1.0.4/HLA-LA/working \
+        /opt2/hla-la/1.0.4/HLA-LA/graphs \
+    && cd /opt2/hla-la/1.0.4/HLA-LA/src \
     && git clone https://github.com/DiltheyLab/HLA-LA.git . \
-    && git checkout fb8ae1cde7783d6cf441a80319e943f63f3b6276 \
+    && git checkout be9e7473769f03e4e0d9daf2a8572f094c7ed380 \
     && ln -sf /opt2/libbamtools/lib /opt2/libbamtools/lib64 \
     && make all \
         BOOST_PATH=/opt2/libboost \
@@ -114,8 +114,8 @@ RUN mkdir -p /opt2/hla-la/1.0.3/ \
     && sed -i "s:^\(picard_sam2fastq_bin=\).*:\1$PICARD:" paths.ini \
     && sed -i "s:^\(workingDir=\).*:workingDir=:" paths.ini \
     && sed -i "s:^\(workingDir_HLA_ASM=\).*:workingDir_HLA_ASM=:" paths.ini \
-    && /opt2/hla-la/1.0.3/HLA-LA/bin/HLA-LA --action testBinary
-ENV PATH="${PATH}:/opt2/hla-la/1.0.3/HLA-LA/bin:/opt2/hla-la/1.0.3/HLA-LA/src"
+    && /opt2/hla-la/1.0.4/HLA-LA/bin/HLA-LA --action testBinary
+ENV PATH="${PATH}:/opt2/hla-la/1.0.4/HLA-LA/bin:/opt2/hla-la/1.0.3/HLA-LA/src"
 
 
 ################ POST #################
