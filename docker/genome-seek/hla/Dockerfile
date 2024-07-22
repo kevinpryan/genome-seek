@@ -115,7 +115,7 @@ RUN mkdir -p /opt2/hla-la/1.0.4/ \
     && sed -i "s:^\(workingDir=\).*:workingDir=:" paths.ini \
     && sed -i "s:^\(workingDir_HLA_ASM=\).*:workingDir_HLA_ASM=:" paths.ini \
     && /opt2/hla-la/1.0.4/HLA-LA/bin/HLA-LA --action testBinary
-ENV PATH="${PATH}:/opt2/hla-la/1.0.4/HLA-LA/bin:/opt2/hla-la/1.0.3/HLA-LA/src"
+ENV PATH="${PATH}:/opt2/hla-la/1.0.4/HLA-LA/bin:/opt2/hla-la/1.0.4/HLA-LA/src"
 
 
 ################ POST #################
