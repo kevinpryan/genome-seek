@@ -65,7 +65,10 @@ RUN mkdir -p /opt2/lib/ \
     && rm /opt2/lib/boost_1_80_0.tar.bz2 \
     && cd /opt2/lib/boost_1_80_0 \
     && ./bootstrap.sh \
-    && ./b2 -q install --prefix=/opt2/libboost 
+    && ./b2 -q install --prefix=/opt2/libboost \
+    && echo "/opt2/libboost/lib" > /etc/ld.so.conf.d/boost.conf \
+    && ldconfig 
+
 ENV PATH="${PATH}:/opt2/libboost/bin" \
     LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/opt2/libboost/lib"
 
@@ -86,7 +89,10 @@ RUN mkdir -p /opt2/bamtools/ \
         -DBUILD_SHARED_LIBS=TRUE \
         .. \
     && make install \
+    && echo "/opt2/libbamtools/lib" > /etc/ld.so.conf.d/bamtools.conf \
+    && ldconfig \
     && rm -rf /opt2/bamtools/bamtools-2.5.2/build
+
 ENV PATH="${PATH}:/opt2/libbamtools/bin" \
     LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/opt2/libbamtools/lib"
 
